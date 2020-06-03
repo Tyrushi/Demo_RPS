@@ -27,7 +27,10 @@ rps = ["rock", "paper", "scissors"]
 
 # Get user choice...
 user_choice = string_checker("Choose: ", rps)
-print(choose)
+print(user_choice)
+
+comp_choice = random.choice(rps)
+print(comp_choice)
 
 
 
