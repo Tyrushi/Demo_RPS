@@ -1,6 +1,27 @@
 import random
 
 # **** Functions go here... ****
+def instructions():
+
+  first_time = string_checker("Would you like to read the instructions? ", ["yes", "no"])
+
+  if first_time == "no":
+    return ""
+  
+  else:
+    print()
+    print("******* RPS Instructions ********")
+    print()
+    print("Either choose a number or rounds or \n press enter to play continuous mode.  Note that you can type 'xxx' as a choice at any time to quite the game and view your summary statistics.")
+    print()
+    print("The rules are simple...")
+    print("Rock beats scissors")
+    print("Scissors beats paper")
+    print("Paper beats rock")
+    print()
+    print("Have fun!")
+    print()
+
 
 # Gets number or rounds / continuous mode
 def get_rounds():
@@ -57,19 +78,19 @@ def rps_compare(rps_list, user, comp):
 
   # If they're the same, it's a tie
   if user == comp:
-    result = "It's a tie!"
+    result = "tie"
 
   # Three ways to win
   elif user == "rock" and comp == "scissors":
-    result = "You won!"
+    result = "win"
   elif user == "paper" and comp == "rock":
-    result = "You won!"
+    result = "win"
   elif user == "scissors" and comp == "paper":
-    result = "You won!"
+    result = "win"
 
   # If one does not win / tie, it's a loss
   else:
-    result = "You lost"
+    result = "lose"
 
   return result
 
@@ -78,10 +99,19 @@ def rps_compare(rps_list, user, comp):
 
 #  *** Main Routine starts here ***
 
-# Set up list for user choice AND computer choice
-rps = ["rock", "paper", "scissors"]
+# Ask user if they have played game before and display instructions if desired.
+instructions()
 
+
+# Set up lists
+rps = ["rock", "paper", "scissors"]   # choices for user and computer
+game_summary = [] # Holds results from each round
+
+# Initialise counters
 rounds_played = 0
+win = 0
+lose = 0
+tie = 0
 
 mode = get_rounds()
 
@@ -114,13 +144,43 @@ while choose != "xxx":
 
   # Get Computer Choice
   comp_choice = random.choice(rps)
-  print(comp_choice)
 
   # Compare user and computer choice
   compare = rps_compare(rps, user_choice, comp_choice)
-  print(compare)
 
-# End of game, farewell message
+  if compare == "win":
+    win += 1n
+  elif compare == "lose":
+    lose += 1
+  else:
+    tie += 1
+
+  result = "Round #{}: User choice: {} | Computer choice: {} | Result {}".format(rounds_played, user_choice, comp_choice, compare)
+
+  # Output result to user
+  print(result)
+
+  # add result to game summary (to be ouput at end)
+  game_summary.append(result)
+
+
+# Calculate Game statistics
+percent_win = win / rounds_played * 100
+percent_lose = lose / rounds_played * 100
+percent_tie = tie / rounds_played * 100
+
+# End of game, Print Stats
+print("**** Game History ****")
+for item in game_summary:
+  print(item)
+
 print()
-print("You played {} rounds.  Thank you.".format(rounds_played))
+
+print("******* Game Statistics ********")
+print("Win: {}, ({:.0f}%)\nLoss: {}, ({:.0f}%)\nTie: {}, ({:.0f}%)".format(win, percent_win, lose, percent_lose, tie, percent_tie))
+print()
+
+print("Thanks for playing.")
+
+
 
