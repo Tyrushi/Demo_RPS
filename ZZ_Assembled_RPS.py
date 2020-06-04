@@ -120,5 +120,7 @@ while choose != "xxx":
   compare = rps_compare(rps, user_choice, comp_choice)
   print(compare)
 
+# End of game, farewell message
+print()
 print("You played {} rounds.  Thank you.".format(rounds_played))
 
