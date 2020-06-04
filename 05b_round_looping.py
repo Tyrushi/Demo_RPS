@@ -44,13 +44,15 @@ while choose != "xxx":
   # ask user for choice and lowercase answer
   print()
   print("Round: {}".format(rounds_played + 1))
-  choose = input("Choice").lower()
-  rounds_played += 1
+  choose = input("Choice: ").lower()
+  
   
   if choose == "xxx":
     break
   
-  # add one to number or rounds for continuous mode (prevents number or rounds being reached)
+  rounds_played += 1
+  
+  # add one to number or rounds for continuous mode (prevents number or rounds being reached before user enters exit code)
   if mode == "continuous":
     num_rounds += 1
 
