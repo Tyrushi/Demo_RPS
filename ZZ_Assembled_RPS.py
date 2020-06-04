@@ -2,6 +2,32 @@ import random
 
 # **** Functions go here... ****
 
+# Gets number or rounds / continuous mode
+def get_rounds():
+
+  error = "Please enter an integer or press <enter>"
+
+  valid = False
+
+  while not valid:
+    print()
+    response = input("How many rounds? \nPress <enter> for continuous mode: \n")
+
+    if response == "":
+      return("continuous")
+
+    try:
+      response = int(response)
+
+      if response > 0:
+        return response
+      else:
+        print(error)
+
+    except ValueError:
+      print(error)
+
+
 # Checks user input (either full word or first letter of word)
 def string_checker(question, to_check):
   
@@ -9,6 +35,9 @@ def string_checker(question, to_check):
   while not valid:
     # ask user question and change response to lowercase
     response = input(question).lower()
+
+    if response == "xxx":
+      return response
 
     # check response is in list OR that it's the first letter of an item in the list
     for item in to_check:
@@ -52,18 +81,44 @@ def rps_compare(rps_list, user, comp):
 # Set up list for user choice AND computer choice
 rps = ["rock", "paper", "scissors"]
 
-# Get user choice...
-user_choice = string_checker("Choose: ", rps)
-print(user_choice)
+rounds_played = 0
 
-comp_choice = random.choice(rps)
-print(comp_choice)
+mode = get_rounds()
 
-compare = rps_compare(rps, user_choice, comp_choice)
-print(compare)
+if mode != "continuous":
+  num_rounds = mode
+else: 
+  num_rounds = 3
 
-# Compare user and computer choice
+choose = ""
+while choose != "xxx":
 
+  # check there are still rounds to be played...
+  if rounds_played >= num_rounds:
+    break
 
+  print()
+  print("Round: {}".format(rounds_played + 1))
 
-# **** Main Routine goes here ****
+  # Get user choice...
+  user_choice = string_checker("Choose: ", rps)
+  
+  if user_choice == "xxx":
+    break
+  
+  rounds_played += 1
+  
+  # add one to number or rounds for continuous mode (prevents number or rounds being reached before user enters exit code)
+  if mode == "continuous":
+    num_rounds += 1
+
+  # Get Computer Choice
+  comp_choice = random.choice(rps)
+  print(comp_choice)
+
+  # Compare user and computer choice
+  compare = rps_compare(rps, user_choice, comp_choice)
+  print(compare)
+
+print("You played {} rounds.  Thank you.".format(rounds_played))
+
