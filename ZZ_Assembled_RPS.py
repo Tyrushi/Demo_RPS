@@ -23,6 +23,12 @@ def instructions():
     print()
 
 
+def statement_generator(statement, char):
+  print(len(statement) * char)
+  print(statement)
+  print(len(statement) * char)
+  return ""
+
 # Gets number or rounds / continuous mode
 def get_rounds():
 
@@ -149,16 +155,21 @@ while choose != "xxx":
   compare = rps_compare(rps, user_choice, comp_choice)
 
   if compare == "win":
-    win += 1n
+    win += 1
+    decoration = "*"
   elif compare == "lose":
     lose += 1
+    decoration = "!"
   else:
     tie += 1
+    decoration = "="
 
-  result = "Round #{}: User choice: {} | Computer choice: {} | Result {}".format(rounds_played, user_choice, comp_choice, compare)
+  result = "Round #{}: {} vs {} : {}".format(rounds_played, user_choice, comp_choice, compare)
 
   # Output result to user
-  print(result)
+  print()
+  statement_generator(result, decoration)
+  print()
 
   # add result to game summary (to be ouput at end)
   game_summary.append(result)
@@ -170,6 +181,7 @@ percent_lose = lose / rounds_played * 100
 percent_tie = tie / rounds_played * 100
 
 # End of game, Print Stats
+print()
 print("**** Game History ****")
 for item in game_summary:
   print(item)
