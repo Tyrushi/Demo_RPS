@@ -32,7 +32,7 @@ def statement_generator(statement, char):
 # Gets number or rounds / continuous mode
 def get_rounds():
 
-  error = "Please enter an integer or press <enter>"
+  error = "Please enter an integer that is more than 0 or press <enter>"
 
   valid = False
 
@@ -105,6 +105,10 @@ def rps_compare(rps_list, user, comp):
 
 #  *** Main Routine starts here ***
 
+statement_generator("***Welcome to the Great RPS Game ***", "*")
+
+print()
+
 # Ask user if they have played game before and display instructions if desired.
 instructions()
 
@@ -134,12 +138,12 @@ while choose != "xxx":
     break
 
   print()
-  print("Round: {}".format(rounds_played + 1))
+  print("Round #{}".format(rounds_played + 1))
 
   # Get user choice...
   user_choice = string_checker("Choose: ", rps)
   
-  if user_choice == "xxx":
+  if user_choice.lower() == "xxx":
     break
   
   rounds_played += 1
@@ -164,7 +168,7 @@ while choose != "xxx":
     tie += 1
     decoration = "="
 
-  result = "Round #{}: {} vs {} : {}".format(rounds_played, user_choice, comp_choice, compare)
+  result = "{} vs {} : {}".format(user_choice, comp_choice, compare)
 
   # Output result to user
   print()
@@ -172,7 +176,7 @@ while choose != "xxx":
   print()
 
   # add result to game summary (to be ouput at end)
-  game_summary.append(result)
+  game_summary.append("Round #{} - {}".format(rounds_played,result))
 
 
 # Calculate Game statistics
